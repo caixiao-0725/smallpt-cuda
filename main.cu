@@ -206,7 +206,7 @@ __global__ void pathTracekernel(float3* h_output)
 
     for (int s = 0; s < SPP; s++)
     {
-        float3 d = camRay.dir + cx * ((0.25 + x) / WIDTH - 0.5) + cy * ((0.25 + y) / HEIGHT - 0.5);
+        float3 d = camRay.dir + cx * ((x+rand(&s1,&s2)-0.5) / WIDTH - 0.5) + cy * ((y + rand(&s1, &s2) - 0.5) / HEIGHT - 0.5);
         Ray ray(camRay.pos + d * 140, normalize(d));
 
         pixel += pathTrace(ray, &s1, &s2) * (1. / SPP);
